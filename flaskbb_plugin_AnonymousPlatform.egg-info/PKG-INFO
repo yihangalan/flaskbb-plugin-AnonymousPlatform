@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: flaskbb-plugin-AnonymousPlatform
+Version: 0.1.0
+Summary: A AnonymousPlatform plugin for FlaskBB
+Home-page: https://github.com/yihangalan/yihangalan-flaskbb-plugin-AnonymousPlatform
+Author: Fengyuan Ran
+Author-email: 1337386019@qq.com
+License: BSD
+Keywords: flaskbb plugin AnonymousPlatform
+Platform: any
+Description-Content-Type: text/markdown
+
+this is my README
+
