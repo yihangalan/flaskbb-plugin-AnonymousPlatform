@@ -21,6 +21,15 @@ import uuid
 AnonymousPlatform_bp = Blueprint("AnonymousPlatform_bp", __name__, template_folder="templates", static_folder="static")
 
 
+
+@AnonymousPlatform_bp.before_request
+def check_fresh_login():
+    """Checks if the login is fresh for the current user, otherwise the user
+    has to reauthenticate."""
+    if not login_fresh():
+        return current_app.login_manager.needs_refresh()
+
+
 @AnonymousPlatform_bp.route("/demo", methods=['GET', 'POST'])
 def demo():
-    return "hello"
+    return render_template("AnonymousPlatform_HomePage.html", user=current_user)

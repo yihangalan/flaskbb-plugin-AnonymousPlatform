@@ -1,8 +1,98 @@
-{% extends theme("user/profile_layout.html") %}
-{% block breadcrumb %}
-    <ol class="breadcrumb flaskbb-breadcrumb bg-light">
-        <li class="breadcrumb-item"><a href="{{ url_for('forum.index') }}">{% trans %}Forum{% endtrans %}</a></li>
-        <li class="breadcrumb-item"><a href="{{ user.url }}">{{ user.username }}</a></li>
-        <li class="breadcrumb-item active">{% trans %}二手交易{% endtrans %}</li>
-    </ol>
+{% extends theme("layout.html") %}
+{% set page_title = "讯飞未来港匿名交流平台" %}
+
+{% block content %}
+
+
+    <div class="container">
+        <h1 class="text-center text-primary">在这里你可以畅所欲言，没人能看到（包括老板）</h1>
+    </div>
+
+    <div class="container mt-5">
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <h1 class="text-center">随机给你推荐几个热门大宝贝</h1>
+
+            </div>
+            <div class="carousel-item">
+              <h1 class="text-center">这是第一个</h1>
+
+            </div>
+            <div class="carousel-item">
+              <h1 class="text-center">这是第二个</h1>
+
+            </div>
+          </div>
+
+          <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon btn-warning" aria-hidden="true"></span>
+          </button>
+
+          <button class="carousel-control-next " type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            <span class="carousel-control-next-icon btn-warning" ></span>
+          </button>
+            <br><br>
+          <div class="carousel-indicators mt-5">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active btn bg-warning" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2" class="btn bg-warning"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3" class="btn bg-warning"></button>
+          </div>
+        </div>
+    </div>
+
+
+    <div class="container mt-5">
+        <div class="form-floating">
+          <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+            <option selected>选择你感兴趣的分区</option>
+            <option value="1">餐饮</option>
+            <option value="2">加薪</option>
+            <option value="3">工作</option>
+            <option value="4">告白</option>
+            <option value="5">老板</option>
+            <option value="6">摸鱼</option>
+          </select>
+            <label for="floatingSelect">让我们给吐槽分个组</label>
+    </div>
+
+    </div>
+
+    <div class="container mt-3">
+        <div class="mb-3 input-group-lg">
+        <form method="post">
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="输入你想说的悄悄话。。。"></textarea>
+          <button  type="button" class="btn btn-primary mt-3">提交</button>
+        </form>
+        </div>
+    </div>
+
+
+    <div class="container mt-5">
+        <div class="card">
+          <h5 class="card-header">Featured</h5>
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+    </div>
+
+    <div class="container mt-5 ">
+        <nav aria-label="Page navigation example" >
+          <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </nav>
+    </div>
+
+
+
 {% endblock %}
+
+
