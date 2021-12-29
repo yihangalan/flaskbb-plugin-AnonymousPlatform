@@ -10,89 +10,110 @@
 
     <div class="container mt-5">
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <h1 class="text-center">随机给你推荐几个热门大宝贝</h1>
-
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <h1 class="text-center">随机给你推荐几个热门大宝贝</h1>
+                </div>
+                <div class="carousel-item">
+                    <h1 class="text-center">这是第一个</h1>
+                </div>
+                <div class="carousel-item">
+                    <h1 class="text-center">这是第二个</h1>
+                </div>
             </div>
-            <div class="carousel-item">
-              <h1 class="text-center">这是第一个</h1>
 
-            </div>
-            <div class="carousel-item">
-              <h1 class="text-center">这是第二个</h1>
+            <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon btn-warning" aria-hidden="true"></span>
+            </button>
 
-            </div>
-          </div>
-
-          <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon btn-warning" aria-hidden="true"></span>
-          </button>
-
-          <button class="carousel-control-next " type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-            <span class="carousel-control-next-icon btn-warning" ></span>
-          </button>
+            <button class="carousel-control-next " type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon btn-warning"></span>
+            </button>
             <br><br>
-          <div class="carousel-indicators mt-5">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active btn bg-warning" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2" class="btn bg-warning"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3" class="btn bg-warning"></button>
-          </div>
+            <div class="carousel-indicators mt-5">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
+                        class="active btn bg-warning" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                        aria-label="Slide 2" class="btn bg-warning"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                        aria-label="Slide 3" class="btn bg-warning"></button>
+            </div>
         </div>
     </div>
+
 
 
     <div class="container mt-5">
-        <div class="form-floating">
-          <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-            <option selected>选择你感兴趣的分区</option>
-            <option value="1">餐饮</option>
-            <option value="2">加薪</option>
-            <option value="3">工作</option>
-            <option value="4">告白</option>
-            <option value="5">老板</option>
-            <option value="6">摸鱼</option>
-          </select>
-            <label for="floatingSelect">让我们给吐槽分个组</label>
-    </div>
-
-    </div>
-
-    <div class="container mt-3">
-        <div class="mb-3 input-group-lg">
-        <form method="post">
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="输入你想说的悄悄话。。。"></textarea>
-          <button  type="button" class="btn btn-primary mt-3">提交</button>
+        <form method="post" id="contentForm" action="{{ url_for('AnonymousPlatform_bp.home') }}">
+            {{ form.csrf_token }}
+            <div class="form-floating">
+{#                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">#}
+{#                    <option selected>选择你感兴趣的分区</option>#}
+{#                    <option value="1">餐饮</option>#}
+{#                    <option value="2">加薪</option>#}
+{#                    <option value="3">工作</option>#}
+{#                    <option value="4">告白</option>#}
+{#                    <option value="5">老板</option>#}
+{#                    <option value="6">摸鱼</option>#}
+{#                </select>#}
+                {{ form.tag(class="form-select")}}
+                <label for="floatingSelect">让我们给吐槽分个组</label>
+            </div>
+            <div class="mb-3 input-group-lg mt-2">
+                {{ form.content (class="form-control", id="exampleFormControlTextarea1", rows="6", placeholder="输入你想说的悄悄话。。。") }}
+                <button id="loadButton" type="button" class="btn btn-primary mt-3">提交</button>
+            </div>
         </form>
-        </div>
     </div>
 
 
     <div class="container mt-5">
         <div class="card">
-          <h5 class="card-header">Featured</h5>
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
+            <h5 class="card-header">Featured</h5>
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
         </div>
     </div>
 
     <div class="container mt-5 ">
-        <nav aria-label="Page navigation example" >
-          <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
         </nav>
     </div>
 
-
+    <script src="{{ url_for("AnonymousPlatform_bp.static", filename="jquery-3.6.0.min.js") }}"></script>
+    <script>
+        $("#loadButton").on("click", function (event) {
+            event.preventDefault();
+            var form = new FormData(document.getElementById("contentForm"));
+            $.ajax({
+                url: "{{ url_for('AnonymousPlatform_bp.home') }}",
+                type: "post",
+                data: form,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    alert("success")
+                },
+                error: function (response) {
+                    alert("请重新输入")
+                    location.href="{{ url_for('AnonymousPlatform_bp.home')}}"
+                }
+            })
+        })
+    </script>
 
 {% endblock %}
-
 

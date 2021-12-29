@@ -10,9 +10,11 @@ class Conversation(Base):
     __tablename__ = 'conversation'
     id = Column(Integer, primary_key=True)
     content = Column(String)
+    tag = Column(String)
     conversation_start_time = Column(DateTime)
     user_id = Column(Integer)
-    messageId = Column(Integer, ForeignKey('message.id'))
+    Message = relationship("Message", backref="conversation")
+
 
 
 class Message(Base):
@@ -20,7 +22,8 @@ class Message(Base):
     id = Column(Integer, primary_key=True)
     content = Column(String)
     messageTime = Column(DateTime)
-    Conversation = relationship("Conversation", backref="message")
+    conversationId = Column(Integer, ForeignKey('conversation.id'))
+
 
 
 

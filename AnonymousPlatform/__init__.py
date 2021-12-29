@@ -28,8 +28,8 @@ def flaskbb_extensions(app):
 @hookimpl
 def flaskbb_tpl_navigation_after():
     return NavigationLink(
-        endpoint="AnonymousPlatform_bp.demo",
-        name=_("放纵社区"),
+        endpoint="AnonymousPlatform_bp.home",
+        name=_("匿名平台"),
         icon="fas fa-ghost"
     )
 

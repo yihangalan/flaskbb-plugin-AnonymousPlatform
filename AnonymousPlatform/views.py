@@ -1,22 +1,21 @@
 
 import json
 
+import AnonymousPlatform
 from flask import Blueprint, current_app, flash, request, g, redirect, url_for, jsonify
 from flask_babelplus import gettext as _
 from flask_login import current_user, login_fresh
-
 from flaskbb.utils.helpers import render_template
 from flaskbb.forum.models import Topic, Post, Forum
 from flaskbb.user.models import User, Group
 from flaskbb.plugins.models import PluginRegistry
 from flaskbb.utils.helpers import time_diff, get_online_users
 from flaskbb.utils.settings import flaskbb_config
-import SecondHand
 import datetime
-# from .form import ReleaseItemsForm, PurchaseItemsForm
+from .forms import ReleaseAnonymousContentForm
 from conversations.models import Conversation, Message
 import uuid
-# from .model import Items, Items_del
+from .models import Conversation, Message
 
 AnonymousPlatform_bp = Blueprint("AnonymousPlatform_bp", __name__, template_folder="templates", static_folder="static")
 
@@ -30,6 +29,27 @@ def check_fresh_login():
         return current_app.login_manager.needs_refresh()
 
 
-@AnonymousPlatform_bp.route("/demo", methods=['GET', 'POST'])
-def demo():
-    return render_template("AnonymousPlatform_HomePage.html", user=current_user)
+@AnonymousPlatform_bp.route("/home", methods=['GET', 'POST'])
+def home():
+    session = AnonymousPlatform.Session()
+    form = ReleaseAnonymousContentForm()
+    if request.method == "GET":
+        return render_template("AnonymousPlatform_HomePage.html",
+                               user=current_user,
+                               form=form)
+    if form.validate_on_submit():
+        conversation = Conversation(content=form.content.data,
+                                    tag=form.tag.data,
+                                    conversation_start_time=datetime.datetime.now(),
+                                    user_id=current_user.id
+        )
+        session.add(conversation)
+        session.commit()
+        return json.dumps({"validate": "success"})
+    else:
+        error = dict({"validate": "error"}, **form.errors)
+        print(error)
+        return json.dumps(error)
+
+
+
