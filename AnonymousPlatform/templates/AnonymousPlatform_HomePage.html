@@ -5,7 +5,7 @@
 
 
     <div class="container">
-        <h1 class="text-center text-primary">在这里你可以畅所欲言，没人能看到（包括老板）</h1>
+        <h1 class="text-center text-danger">在这里你可以畅所欲言，没人能看到（包括老板）</h1>
     </div>
 
     <div class="container mt-5">
@@ -68,6 +68,31 @@
         </form>
     </div>
 
+    <div class="container">
+        <h1 class="text-center text-danger">选择你感兴趣的分类</h1>
+        <div class="row mt-5">
+            <div class="col-2">
+                <button type="button" class="btn btn-danger btn-lg">工作</button>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-danger btn-lg">加薪</button>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-danger btn-lg">餐饮</button>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-danger btn-lg">告白</button>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-danger btn-lg">老板</button>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-danger btn-lg">摸鱼</button>
+            </div>
+        </div>
+
+    </div>
+
 
     <div class="container" id="errorMessage">
 
@@ -89,7 +114,6 @@
         <div class="container" id= "contentBlock">
 
         </div>
-
     </div>
 
 
@@ -119,20 +143,20 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    if (response[2]["validate"] === "success") {
+                    if (response["validate"] === "success") {
                         alert("success")
                         var html = "";
                         html += `<div class="container mt-5">
                                     <div class="card">
-                                        <h5 class="card-header">${response[1][-1].tag}</h5>
+                                        <h5 class="card-header">${response["tag"]}</h5>
                                         <div class="card-body">
                                             <h5 class="card-title">Special title treatment</h5>
-                                            <p class="card-text">${response[1][-1].content}</p>
+                                            <p class="card-text">${response["content"]}</p>
                                             <a href="#" class="btn btn-primary">Go somewhere</a>
                                         </div>
                                     </div>
                                 </div>`
-                        document.getElementById('contentBlock').innerHTML = html
+                        $('#contentBlock').append(html)
                     }
                     else if (response["validate"] === "error") {
                         alert("请按标准输入")

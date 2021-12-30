@@ -48,9 +48,14 @@ def home():
         session.add(conversation)
         session.commit()
         content_dict = dict()
-        for i in conversation_content:
 
-        conversation_dict = {1: "conversation_content", 2: {"validate": "success"}}
+        start_time = str(conversation.conversation_start_time)
+        tag = str(conversation.tag)
+        content = str(conversation.content)
+        conversation_dict = {"start_time": start_time,
+                             "tag":tag,
+                             "content": content,
+                             "validate": "success"}
         return json.dumps(conversation_dict)
     else:
         error = dict({"validate": "error"}, **form.errors)
