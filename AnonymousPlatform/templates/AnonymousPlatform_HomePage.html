@@ -69,16 +69,30 @@
     </div>
 
 
-    <div class="container mt-5">
-        <div class="card">
-            <h5 class="card-header">Featured</h5>
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
+    <div class="container" id="errorMessage">
+
     </div>
+
+    <div class="container">
+        {% for i in content %}
+            <div class="container mt-5">
+                <div class="card">
+                    <h5 class="card-header">{{ i.tag }}</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">{{ i.content }}</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="container" id= "contentBlock">
+
+        </div>
+
+    </div>
+
+
 
     <div class="container mt-5 ">
         <nav aria-label="Page navigation example">
@@ -105,11 +119,38 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    alert("success")
+                    if (response[2]["validate"] === "success") {
+                        alert("success")
+                        var html = "";
+                        html += `<div class="container mt-5">
+                                    <div class="card">
+                                        <h5 class="card-header">${response[1][-1].tag}</h5>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Special title treatment</h5>
+                                            <p class="card-text">${response[1][-1].content}</p>
+                                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        </div>
+                                    </div>
+                                </div>`
+                        document.getElementById('contentBlock').innerHTML = html
+                    }
+                    else if (response["validate"] === "error") {
+                        alert("请按标准输入")
+                        var html = "";
+                        for (var i in response) {
+                            if (i !== "validate") {
+                                {#html += `{{ response[i] }}`#}
+                            }
+                        }
+                        document.getElementById('errorMessage').innerHTML = html
+                    }
+                    else {
+                        alert("发布失败，请重试")
+                    }
                 },
                 error: function (response) {
-                    alert("请重新输入")
-                    location.href="{{ url_for('AnonymousPlatform_bp.home')}}"
+                    alert("发布失败，请重试")
+                    {#location.href="{{ url_for('AnonymousPlatform_bp.home')}}"#}
                 }
             })
         })

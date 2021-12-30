@@ -33,10 +33,12 @@ def check_fresh_login():
 def home():
     session = AnonymousPlatform.Session()
     form = ReleaseAnonymousContentForm()
+    conversation_content = session.query(Conversation).all()
     if request.method == "GET":
         return render_template("AnonymousPlatform_HomePage.html",
                                user=current_user,
-                               form=form)
+                               form=form,
+                               content=conversation_content)
     if form.validate_on_submit():
         conversation = Conversation(content=form.content.data,
                                     tag=form.tag.data,
@@ -45,7 +47,11 @@ def home():
         )
         session.add(conversation)
         session.commit()
-        return json.dumps({"validate": "success"})
+        content_dict = dict()
+        for i in conversation_content:
+
+        conversation_dict = {1: "conversation_content", 2: {"validate": "success"}}
+        return json.dumps(conversation_dict)
     else:
         error = dict({"validate": "error"}, **form.errors)
         print(error)
