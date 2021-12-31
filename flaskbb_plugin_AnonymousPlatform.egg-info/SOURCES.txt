@@ -1,6 +1,7 @@
 README.md
 setup.py
 AnonymousPlatform/__init__.py
+AnonymousPlatform/database.py
 AnonymousPlatform/forms.py
 AnonymousPlatform/models.py
 AnonymousPlatform/views.py

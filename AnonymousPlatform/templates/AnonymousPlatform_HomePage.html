@@ -5,7 +5,7 @@
 
 
     <div class="container">
-        <h1 class="text-center text-danger">在这里你可以畅所欲言，没人能看到（包括老板）</h1>
+        <h1 class="text-center text-warning">这里你可以畅所欲言(老板看不到）</h1>
     </div>
 
     <div class="container mt-5">
@@ -61,6 +61,8 @@
                 {{ form.tag(class="form-select")}}
                 <label for="floatingSelect">让我们给吐槽分个组</label>
             </div>
+            <div class="container" id="errorMessage">
+            </div>
             <div class="mb-3 input-group-lg mt-2">
                 {{ form.content (class="form-control", id="exampleFormControlTextarea1", rows="6", placeholder="输入你想说的悄悄话。。。") }}
                 <button id="loadButton" type="button" class="btn btn-primary mt-3">提交</button>
@@ -69,66 +71,153 @@
     </div>
 
     <div class="container">
-        <h1 class="text-center text-danger">选择你感兴趣的分类</h1>
+        <h1 class="text-center text-warning">选择你感兴趣的分类</h1>
         <div class="row mt-5">
             <div class="col-2">
-                <button type="button" class="btn btn-danger btn-lg">工作</button>
+                <button type="button" class="btn btn-warning btn-lg" onclick="showWork()">工作</button>
             </div>
             <div class="col-2">
-                <button type="button" class="btn btn-danger btn-lg">加薪</button>
+                <button type="button" class="btn btn-warning btn-lg" onclick="showRaise()">加薪</button>
             </div>
             <div class="col-2">
-                <button type="button" class="btn btn-danger btn-lg">餐饮</button>
+                <button type="button" class="btn btn-warning btn-lg" onclick="showFood()">餐饮</button>
             </div>
             <div class="col-2">
-                <button type="button" class="btn btn-danger btn-lg">告白</button>
+                <button type="button" class="btn btn-warning btn-lg" onclick="showConfession()">告白</button>
             </div>
             <div class="col-2">
-                <button type="button" class="btn btn-danger btn-lg">老板</button>
+                <button type="button" class="btn btn-warning btn-lg" onclick="showBoss()">老板</button>
             </div>
             <div class="col-2">
-                <button type="button" class="btn btn-danger btn-lg">摸鱼</button>
+                <button type="button" class="btn btn-warning btn-lg" onclick="showLazy()">摸鱼</button>
             </div>
         </div>
 
     </div>
 
 
-    <div class="container" id="errorMessage">
-
+    <div class="contianer" id="none">
+        <div class="container" id= "contentBlock">
+            </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="work">
         {% for i in content %}
-            <div class="container mt-5">
-                <div class="card">
-                    <h5 class="card-header">{{ i.tag }}</h5>
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">{{ i.content }}</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+            {% if i.tag == "工作"%}
+                <div class="container mt-5">
+                    <div class="card">
+                        <h5 class="card-header">{{ i.tag }}</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">{{ i.content }}</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         {% endfor %}
-        <div class="container" id= "contentBlock">
+    </div>
 
-        </div>
+    <div class="container" id="raise">
+        {% for i in content %}
+            {% if i.tag == "加薪"%}
+                <div class="container mt-5">
+                    <div class="card">
+                        <h5 class="card-header">{{ i.tag }}</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">{{ i.content }}</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="container" id="food">
+        {% for i in content %}
+            {% if i.tag == "餐饮"%}
+                <div class="container mt-5">
+                    <div class="card">
+                        <h5 class="card-header">{{ i.tag }}</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">{{ i.content }}</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="container" id="confession">
+        {% for i in content %}
+            {% if i.tag == "告白"%}
+                <div class="container mt-5">
+                    <div class="card">
+                        <h5 class="card-header">{{ i.tag }}</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">{{ i.content }}</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="container" id="boss">
+        {% for i in content %}
+            {% if i.tag == "老板"%}
+                <div class="container mt-5">
+                    <div class="card">
+                        <h5 class="card-header">{{ i.tag }}</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">{{ i.content }}</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="container" id="lazy">
+        {% for i in content %}
+            {% if i.tag == "摸鱼"%}
+                <div class="container mt-5">
+                    <div class="card">
+                        <h5 class="card-header">{{ i.tag }}</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">{{ i.content }}</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
 
 
 
-    <div class="container mt-5 ">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
-    </div>
+{#    <div class="container mt-5 ">#}
+{#        <nav aria-label="Page navigation example">#}
+{#            <ul class="pagination justify-content-center">#}
+{#                <li class="page-item"><a class="page-link" href="#">Previous</a></li>#}
+{#                <li class="page-item"><a class="page-link" href="#">1</a></li>#}
+{#                <li class="page-item"><a class="page-link" href="#">2</a></li>#}
+{#                <li class="page-item"><a class="page-link" href="#">3</a></li>#}
+{#                <li class="page-item"><a class="page-link" href="#">Next</a></li>#}
+{#            </ul>#}
+{#        </nav>#}
+{#    </div>#}
+
+
 
     <script src="{{ url_for("AnonymousPlatform_bp.static", filename="jquery-3.6.0.min.js") }}"></script>
     <script>
@@ -148,6 +237,7 @@
                         var html = "";
                         html += `<div class="container mt-5">
                                     <div class="card">
+                                        {% if  %}
                                         <h5 class="card-header">${response["tag"]}</h5>
                                         <div class="card-body">
                                             <h5 class="card-title">Special title treatment</h5>
@@ -159,14 +249,12 @@
                         $('#contentBlock').append(html)
                     }
                     else if (response["validate"] === "error") {
-                        alert("请按标准输入")
-                        var html = "";
-                        for (var i in response) {
-                            if (i !== "validate") {
-                                {#html += `{{ response[i] }}`#}
-                            }
-                        }
-                        document.getElementById('errorMessage').innerHTML = html
+                        var html = ``
+                        html += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                  <strong>输入格式错误</strong> 请至少输入五个字
+                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>`
+                        $('#errorMessage').append(html)
                     }
                     else {
                         alert("发布失败，请重试")
@@ -178,6 +266,65 @@
                 }
             })
         })
+        window.onload = function none(){
+            document.getElementById("work").style.display = "none";
+            document.getElementById("raise").style.display = "none";
+            document.getElementById("food").style.display = "none";
+            document.getElementById("confession").style.display = "none";
+            document.getElementById("boss").style.display = "none";
+            document.getElementById("lazy").style.display = "none";
+        }
+
+        function showWork(){
+            document.getElementById("work").style.display = "block";
+            document.getElementById("raise").style.display = "none";
+            document.getElementById("food").style.display = "none";
+            document.getElementById("confession").style.display = "none";
+            document.getElementById("boss").style.display = "none";
+            document.getElementById("lazy").style.display = "none";
+        }
+
+        const showRaise = () => {
+            document.getElementById("work").style.display = "none";
+            document.getElementById("raise").style.display = "block";
+            document.getElementById("food").style.display = "none";
+            document.getElementById("confession").style.display = "none";
+            document.getElementById("boss").style.display = "none";
+            document.getElementById("lazy").style.display = "none";
+        }
+
+        const showFood = () => {
+            document.getElementById("work").style.display = "none";
+            document.getElementById("raise").style.display = "none";
+            document.getElementById("food").style.display = "block";
+            document.getElementById("confession").style.display = "none";
+            document.getElementById("boss").style.display = "none";
+            document.getElementById("lazy").style.display = "none";
+        }
+        const showConfession = () => {
+            document.getElementById("work").style.display = "none";
+            document.getElementById("raise").style.display = "none";
+            document.getElementById("food").style.display = "none";
+            document.getElementById("confession").style.display = "block";
+            document.getElementById("Boss").style.display = "none";
+            document.getElementById("lazy").style.display = "none";
+        }
+        const showBoss = () => {
+            document.getElementById("work").style.display = "none";
+            document.getElementById("raise").style.display = "none";
+            document.getElementById("food").style.display = "none";
+            document.getElementById("confession").style.display = "none";
+            document.getElementById("boss").style.display = "block";
+            document.getElementById("lazy").style.display = "none";
+        }
+        const showLazy = () => {
+            document.getElementById("work").style.display = "none";
+            document.getElementById("raise").style.display = "none";
+            document.getElementById("food").style.display = "none";
+            document.getElementById("confession").style.display = "none";
+            document.getElementById("boss").style.display = "none";
+            document.getElementById("lazy").style.display = "block";
+        }
     </script>
 
 {% endblock %}

@@ -1,7 +1,7 @@
 
 import json
-
 import AnonymousPlatform
+from .utilities import determine_tag
 from flask import Blueprint, current_app, flash, request, g, redirect, url_for, jsonify
 from flask_babelplus import gettext as _
 from flask_login import current_user, login_fresh
@@ -35,6 +35,7 @@ def home():
     form = ReleaseAnonymousContentForm()
     conversation_content = session.query(Conversation).all()
     if request.method == "GET":
+        determine_tag(conversation_content)
         return render_template("AnonymousPlatform_HomePage.html",
                                user=current_user,
                                form=form,
