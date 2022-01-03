@@ -1,0 +1,78 @@
+{% extends theme("layout.html") %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb flaskbb-breadcrumb bg-light">
+        <li class="breadcrumb-item"><a href="{{ url_for('forum.index') }}">{% trans %}Forum{% endtrans %}</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for("AnonymousPlatform_bp.home") }}">匿名平台</a></li>
+        <li class="breadcrumb-item active">{% trans %}留言{% endtrans %}</li>
+    </ol>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        {% for i in conversation %}
+            <div class="card">
+              <div class="card-header">
+                  {{ i.tag }}
+              </div>
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <h3>{{ i.content}}</h3>
+                </blockquote>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="container mt-3">
+        <form method="post" id="contentForm" action="{{ url_for('AnonymousPlatform_bp.conversation') }}">
+            {{ form.csrf_token }}
+            <div class="container" id="errorMessage">
+            </div>
+            <div class="mb-3 input-group-lg mt-2">
+                {{ form.content (class="form-control", id="exampleFormControlTextarea1", rows="6", placeholder="你想留言啥呀") }}
+                <button id="loadButton" type="button" class="btn btn-primary mt-3">留言</button>
+            </div>
+        </form>
+    </div>
+
+
+    <script src="{{ url_for("AnonymousPlatform_bp.static", filename="jquery-3.6.0.min.js") }}"></script>
+    <script>
+        $("#loadButton").on("click", function (event) {
+            event.preventDefault();
+            var form = new FormData(document.getElementById("contentForm"));
+            $.ajax({
+                url: "{{ url_for('AnonymousPlatform_bp.conversation') }}",
+                type: "post",
+                data: form,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    {#if (response["validate"] === "success") {#}
+                    alert(response["validate"])
+                    {#    var html = "";#}
+                    {#    html += ``#}
+                    {#    $('#contentBlock').append(html)}#}
+                    {#else if (response["validate"] === "error") {#}
+                    {#    var html = ``#}
+                    {#    html += ``#}
+                    {#    $('#errorMessage').append(html)}#}
+                    {#else {#}
+                    {#    alert("发布失败，请重试")}#}
+                },
+                error: function (response) {
+                    alert("发布失败，请重试")
+                    {#location.href="{{ url_for('AnonymousPlatform_bp.home')}}"#}
+                }
+            })
+        })
+
+
+
+
+    </script>
+
+{% endblock %}

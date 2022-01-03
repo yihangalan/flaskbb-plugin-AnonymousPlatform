@@ -12,7 +12,7 @@ from flaskbb.plugins.models import PluginRegistry
 from flaskbb.utils.helpers import time_diff, get_online_users
 from flaskbb.utils.settings import flaskbb_config
 import datetime
-from .forms import ReleaseAnonymousContentForm
+from .forms import ReleaseAnonymousContentForm, MessageForm
 from conversations.models import Conversation, Message
 import uuid
 from .models import Conversation, Message
@@ -44,8 +44,7 @@ def home():
         conversation = Conversation(content=form.content.data,
                                     tag=form.tag.data,
                                     conversation_start_time=datetime.datetime.now(),
-                                    user_id=current_user.id
-        )
+                                    user_id=current_user.id)
         session.add(conversation)
         session.commit()
         content_dict = dict()
@@ -53,15 +52,38 @@ def home():
         start_time = str(conversation.conversation_start_time)
         tag = str(conversation.tag)
         content = str(conversation.content)
+        id = str(conversation.id)
         conversation_dict = {"start_time": start_time,
                              "tag":tag,
                              "content": content,
+                             "id": id,
                              "validate": "success"}
         return json.dumps(conversation_dict)
     else:
         error = dict({"validate": "error"}, **form.errors)
         print(error)
         return json.dumps(error)
+
+@AnonymousPlatform_bp.route("/conversation", methods=['GET', 'POST'])
+def conversation():
+    session = AnonymousPlatform.Session()
+    form = MessageForm()
+    conversationId = request.args.get("conversationId")
+    if request.method == "GET":
+        conversation = session.query(Conversation).filter(Conversation.id == conversationId).all()
+        determine_tag(conversation)
+        return render_template("ConversationPlatform.html",
+                               form=form,
+                               user=current_user,
+                               conversation=conversation)
+    # if form.validate_on_submit():
+    message = Message(content=form.content.data,
+                      messageTime=datetime.datetime.now(),
+                      conversationId=conversationId)
+    session.add(message)
+    session.commit()
+    return json.dumps(dict({"validate": str(conversationId)}))
+
 
 
 

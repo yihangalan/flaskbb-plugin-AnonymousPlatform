@@ -5,7 +5,7 @@
 
 
     <div class="container">
-        <h1 class="text-center text-warning">这里你可以畅所欲言(老板看不到）</h1>
+        <h1 class="text-center text-primary">这里你可以畅所欲言</h1>
     </div>
 
     <div class="container mt-5">
@@ -110,7 +110,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Special title treatment</h5>
                             <p class="card-text">{{ i.content }}</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="{{url_for("AnonymousPlatform_bp.conversation", conversationId=i.id)}}" class="btn btn-primary">留言</a>
                         </div>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Special title treatment</h5>
                             <p class="card-text">{{ i.content }}</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="{{url_for("AnonymousPlatform_bp.conversation", conversationId=i.id)}}" class="btn btn-primary">留言</a>
                         </div>
                     </div>
                 </div>
@@ -144,7 +144,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Special title treatment</h5>
                             <p class="card-text">{{ i.content }}</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="{{url_for("AnonymousPlatform_bp.conversation", conversationId=i.id)}}" class="btn btn-primary">留言</a>
                         </div>
                     </div>
                 </div>
@@ -161,7 +161,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Special title treatment</h5>
                             <p class="card-text">{{ i.content }}</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="{{url_for("AnonymousPlatform_bp.conversation", conversationId=i.id)}}" class="btn btn-primary">留言</a>
                         </div>
                     </div>
                 </div>
@@ -178,7 +178,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Special title treatment</h5>
                             <p class="card-text">{{ i.content }}</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="{{url_for("AnonymousPlatform_bp.conversation", conversationId=i.id)}}" class="btn btn-primary">留言</a>
                         </div>
                     </div>
                 </div>
@@ -195,7 +195,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Special title treatment</h5>
                             <p class="card-text">{{ i.content }}</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="{{url_for("AnonymousPlatform_bp.conversation", conversationId=i.id)}}" class="btn btn-primary">留言</a>
                         </div>
                     </div>
                 </div>
@@ -237,12 +237,11 @@
                         var html = "";
                         html += `<div class="container mt-5">
                                     <div class="card">
-                                        {% if  %}
                                         <h5 class="card-header">${response["tag"]}</h5>
                                         <div class="card-body">
                                             <h5 class="card-title">Special title treatment</h5>
                                             <p class="card-text">${response["content"]}</p>
-                                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                            <a href="{{url_for("AnonymousPlatform_bp.conversation")}}" class="btn btn-primary">留言</a>
                                         </div>
                                     </div>
                                 </div>`
