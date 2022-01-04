@@ -251,18 +251,18 @@
                 contentType: false,
                 success: function (response) {
                     if (response["validate"] === "success") {
-                        alert("success")
-                        var html = "";
-                        html += `<div class="container mt-5">
-                                    <div class="card">
-                                        <h5 class="card-header">${response["tag"]}</h5>
-                                        <div class="card-body">
-                                            <p class="card-text">${response["content"]}</p>
-                                            <a href="{{url_for("AnonymousPlatform_bp.conversation")}}" class="btn btn-primary">留言</a>
-                                        </div>
-                                    </div>
-                                </div>`
-                        $('#contentBlock').append(html)
+                        window.location.reload()
+                        {#var html = "";#}
+                        {#html += `<div class="container mt-5">#}
+                        {#            <div class="card">#}
+                        {#                <h5 class="card-header">${response["tag"]}</h5>#}
+                        {#                <div class="card-body">#}
+                        {#                    <p class="card-text">${response["content"]}</p>#}
+                        {#                    <a href="{{url_for("AnonymousPlatform_bp.conversation")}}" class="btn btn-primary">留言</a>#}
+                        {#                </div>#}
+                        {#            </div>#}
+                        {#        </div>`#}
+                        {#$('#contentBlock').append(html)#}
                     }
                     else if (response["validate"] === "error") {
                         var html = ``

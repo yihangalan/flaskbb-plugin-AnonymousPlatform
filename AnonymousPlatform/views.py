@@ -35,6 +35,8 @@ def home():
     session = AnonymousPlatform.Session()
     form = ReleaseAnonymousContentForm()
     conversation_content = session.query(Conversation).all()
+    if conversation_content is not None:
+        conversation_content.reverse()
     random_conversation = []
     if len(conversation_content) >= 3:
         random_conversation.append(conversation_content[random.randint(0,len(conversation_content)-1)])
@@ -118,12 +120,23 @@ def conversation():
 def management():
     session = AnonymousPlatform.Session()
     conversation = session.query(Conversation).filter(Conversation.user_id==current_user.id).all()
-    message = []
-    for i in conversation:
-        message += session.query(Message).filter(Message.conversationId == i.id).all()
+    message = session.query(Message).filter(Message.user_id==current_user.id).all()
     return render_template("management.html",
                            conversation=conversation,
-                           # message=message,
+                           message=message,
                            user=current_user)
 
 
+
+@AnonymousPlatform_bp.route("/delete")
+def delete():
+    session = AnonymousPlatform.Session()
+    conversationId = request.args.get("conversationId")
+    conversation = session.query(Conversation).filter(Conversation.id == conversationId).one()
+    message = session.query(Message).filter(Message.conversationId == conversationId).all()
+    for i in message:
+        session.delete(i)
+    session.delete(conversation)
+    session.commit()
+    url = request.args.get("next_url")
+    return redirect(url)
