@@ -22,6 +22,7 @@ class Message(Base):
     id = Column(Integer, primary_key=True)
     content = Column(String)
     messageTime = Column(DateTime)
+    user_id = Column(Integer)
     conversationId = Column(Integer, ForeignKey('conversation.id'))
 
 

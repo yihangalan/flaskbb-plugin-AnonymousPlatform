@@ -1,0 +1,18 @@
+{% extends theme("user/profile_layout.html") %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb flaskbb-breadcrumb bg-light">
+        <li class="breadcrumb-item"><a href="{{ url_for('forum.index') }}">{% trans %}Forum{% endtrans %}</a></li>
+        <li class="breadcrumb-item"><a href="{{ user.url }}">{{ user.username }}</a></li>
+        <li class="breadcrumb-item active">{% trans %}匿名平台{% endtrans %}</li>
+    </ol>
+{% endblock %}
+
+{% block profile_content %}
+{#    {% for i in conversation %}#}
+{#        {{ i.content }}#}
+{#    {% endfor %}#}
+    {% for i in message %}
+        {{ i.content }}
+    {% endfor %}
+{% endblock %}

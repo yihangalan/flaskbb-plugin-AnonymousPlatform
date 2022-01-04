@@ -18,7 +18,8 @@
               </div>
               <div class="card-body">
                 <blockquote class="blockquote mb-0">
-                  <h3>{{ i.content}}</h3>
+                  <h3>{{ i.content}}</h3><br>
+                  <footer class="blockquote-footer">{{ conversation[0].conversation_start_time }}</footer>
                 </blockquote>
               </div>
             </div>
@@ -32,9 +33,21 @@
             </div>
             <div class="mb-3 input-group-lg mt-2">
                 {{ form.content (class="form-control", id="exampleFormControlTextarea1", rows="6", placeholder="你想留言啥呀") }}
+
                 <button id="loadButton" type="button" class="btn btn-primary mt-3">留言</button>
             </div>
         </form>
+    </div>
+
+    <div class="container">
+        {% for i in message %}
+            <div class="card mt-3">
+              <div class="card-body">
+                <h5 class="card-title">{{ i.content }}</h5>
+                <p class="card-text">{{ i.messageTime }}</p>
+              </div>
+            </div>
+        {% endfor %}
     </div>
 
 
@@ -44,24 +57,31 @@
             event.preventDefault();
             var form = new FormData(document.getElementById("contentForm"));
             $.ajax({
-                url: "{{ url_for('AnonymousPlatform_bp.conversation') }}",
+                url: "{{ url_for('AnonymousPlatform_bp.conversation', conversationId=conversation[0].id) }}",
                 type: "post",
                 data: form,
                 dataType: 'json',
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    {#if (response["validate"] === "success") {#}
-                    alert(response["validate"])
-                    {#    var html = "";#}
-                    {#    html += ``#}
-                    {#    $('#contentBlock').append(html)}#}
-                    {#else if (response["validate"] === "error") {#}
-                    {#    var html = ``#}
-                    {#    html += ``#}
-                    {#    $('#errorMessage').append(html)}#}
-                    {#else {#}
-                    {#    alert("发布失败，请重试")}#}
+                    if (response["validate"] === "success") {
+                        alert("发布成功")
+                        window.location.reload()
+                        {#var html = "";#}
+                        {#html += ``#}
+                        {#$('#contentBlock').append(html)#}
+                    }
+                    else if (response["validate"] === "error") {
+                        var html = ``
+                        html += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                  <strong>输入格式错误</strong> 请至少输入三个字
+                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>`
+                        $('#errorMessage').append(html)
+                    }
+                    else {
+                        alert("表单验证失败，请重试")
+                    }
                 },
                 error: function (response) {
                     alert("发布失败，请重试")

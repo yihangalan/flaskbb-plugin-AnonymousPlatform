@@ -34,7 +34,20 @@ def flaskbb_tpl_navigation_after():
     )
 
 @hookimpl
+def flaskbb_tpl_profile_links(user):
+    if user == current_user:
+        return [
+            NavigationLink(
+                endpoint="AnonymousPlatform_bp.management",
+                name=_("匿名平台"),
+                icon="fas fa-ghost",
+                urlforkwargs={"username": user.username},
+            ),
+        ]
+
+@hookimpl
 def flaskbb_load_blueprints(app):
     app.register_blueprint(
         AnonymousPlatform_bp, url_prefix=app.config.get("PLUGIN_ANONYMOUSPLATFORM_URL_PREFIX", "/AnonymousPlatform")
     )
+
