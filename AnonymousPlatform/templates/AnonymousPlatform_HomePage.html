@@ -66,10 +66,44 @@
             </div>
         </div>
     </div>
+    {% if current_user_post_length >= 1 %}
+        <div class="contianer" id="none">
+            <div class="container mb-3" id= "contentBlock">
+                <div class="card">
+                    <h5 class="card-header">{{ current_conversation.tag }}
+                        <span>
+                            <a type="button" class="btn rounded float-end" data-bs-toggle="modal" data-bs-target="#currentConversationQuestion">
+                                <img class="rounded float-end" src="https://www.svgrepo.com/show/86397/question-mark-button.svg" style="width: 8%">
+                            </a>
+                        </span>
+                    </h5>
+                    <div class="card-body">
+                        <p class="card-text">{{ current_conversation.content }}</p>
+                        <a href="{{url_for("AnonymousPlatform_bp.conversation",conversationId= current_conversation.id )}}" class="btn btn-primary">留言</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if current_user_post_length<1 %}
+         <div class="container mb-3" id= "contentBlock">
+                <div class="card">
+                    <h5 class="card-header">无
+                        <span>
+                            <a type="button" class="btn rounded float-end" data-bs-toggle="modal" data-bs-target="#currentConversationQuestion">
+                                <img class="rounded float-end" src="https://www.svgrepo.com/show/86397/question-mark-button.svg" style="width: 8%">
+                            </a>
+                        </span>
+                    </h5>
+                    <div class="card-body">
+                        <p class="card-text">您还未发布过任何悄悄话</p>
+                    </div>
+                </div>
+            </div>
+    {% endif %}
 
 
-
-    <div class="container mt-5">
+    <div class="container mt-2">
         <form method="post" id="contentForm" action="{{ url_for('AnonymousPlatform_bp.home') }}">
             {{ form.csrf_token }}
             <div class="form-floating">
@@ -94,9 +128,10 @@
         </form>
     </div>
 
-    <div class="container">
+
+    <div class="container mb-3">
         <h1 class="text-center text-warning">选择你感兴趣的分类</h1>
-        <div class="row mt-5">
+        <div class="row mt-5 mb-3">
             <div class="col-2">
                 <button type="button" class="btn btn-warning btn-lg" onclick="showWork()">工作</button>
             </div>
@@ -119,11 +154,6 @@
 
     </div>
 
-
-    <div class="contianer" id="none">
-        <div class="container" id= "contentBlock">
-            </div>
-    </div>
 
     <div class="container" id="work">
         {% for i in content %}
@@ -221,6 +251,23 @@
         {% endfor %}
     </div>
 
+    <div class="modal fade" id="currentConversationQuestion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">提示</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            这里显示您最新发布的悄悄话
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">了解</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
 
 {#    <div class="container mt-5 ">#}
@@ -258,7 +305,7 @@
                         {#                <h5 class="card-header">${response["tag"]}</h5>#}
                         {#                <div class="card-body">#}
                         {#                    <p class="card-text">${response["content"]}</p>#}
-                        {#                    <a href="{{url_for("AnonymousPlatform_bp.conversation")}}" class="btn btn-primary">留言</a>#}
+                        {#                    <a href="{{url_for("AnonymousPlatform_bp.conversation",conversationId=response["id"])}}" class="btn btn-primary">留言</a>#}
                         {#                </div>#}
                         {#            </div>#}
                         {#        </div>`#}

@@ -42,12 +42,17 @@ def home():
         random_conversation.append(conversation_content[random.randint(0,len(conversation_content)-1)])
         random_conversation.append(conversation_content[random.randint(0,len(conversation_content)-1)])
         random_conversation.append(conversation_content[random.randint(0,len(conversation_content)-1)])
+    current_conversation = session.query(Conversation).filter(Conversation.user_id == current_user.id).order_by(Conversation.id.desc()).first()
+    current_user_post = session.query(Conversation).filter(Conversation.user_id == current_user.id).all()
+    current_user_post_length = len(current_user_post)
     if request.method == "GET":
         determine_tag(conversation_content)
         return render_template("AnonymousPlatform_HomePage.html",
                                user=current_user,
                                form=form,
                                content=conversation_content,
+                               current_conversation=current_conversation,
+                               current_user_post_length = current_user_post_length,
                                random_conversation=random_conversation)
     if form.validate_on_submit():
         conversation = Conversation(content=form.content.data,
@@ -73,7 +78,7 @@ def home():
         elif tag == "6":
             tag = "摸鱼"
         content = str(conversation.content)
-        id = str(conversation.id)
+        id = conversation.id
         conversation_dict = {"start_time": start_time,
                              "tag":tag,
                              "content": content,
