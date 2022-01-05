@@ -3,12 +3,24 @@
 
 {% block content %}
 
-
-    <div class="container">
-        <h1 class="text-center text-primary">这里你可以畅所欲言</h1>
+    <div class="container ">
+        <h1 class="text-center text-primary mb-5">欢迎来到匿名平台，这里您可以畅所欲言</h1>
     </div>
 
-    <div class="container mt-5">
+
+    <div class="row justify-content-between align-content-center row-cols-4">
+        <div class="col-12 offset-md-3 col-md-6">
+            <div class="input-group mb-3 ">
+                <input type="text" class="form-control shadow" placeholder="请输入搜索的内容"
+                       aria-label="Recipient's username" aria-describedby="button-addon2" style="height: 55px; border-radius: 20px 0 0 20px;">
+                <button class="btn btn-outline-secondary shadow" type="button" id="button-addon2" style="width: 55px; border-radius: 0 20px 20px 0;"><span
+                        class="fas fa-search" ></span></button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container mt-2 mb-3">
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -66,6 +78,8 @@
             </div>
         </div>
     </div>
+
+
     {% if current_user_post_length >= 1 %}
         <div class="contianer" id="none">
             <div class="container mb-3" id= "contentBlock">
