@@ -7,20 +7,33 @@ from flask_babelplus import gettext as _
 from flask_login import current_user, login_fresh
 from flaskbb.utils.helpers import render_template
 from flaskbb.forum.models import Topic, Post, Forum
-from flaskbb.user.models import User, Group
+from flaskbb.user.models import User, Group, Guest
 from flaskbb.plugins.models import PluginRegistry
-from flaskbb.utils.helpers import time_diff, get_online_users
+from flaskbb.utils.helpers import time_diff, get_online_users, FlashAndRedirect
 from flaskbb.utils.settings import flaskbb_config
 import datetime
 from .forms import ReleaseAnonymousContentForm, MessageForm
 from conversations.models import Conversation, Message
+from flask import current_app
 import uuid
 from .models import Conversation, Message
 import random
 
 AnonymousPlatform_bp = Blueprint("AnonymousPlatform_bp", __name__, template_folder="templates", static_folder="static")
 
-
+@AnonymousPlatform_bp.before_request
+def check_before_request():
+    """Checks if the login is fresh for the current user, otherwise the user
+            has to reauthenticate."""
+    if not login_fresh():
+        return current_app.login_manager.needs_refresh()
+    if isinstance(current_user, Guest) or current_user.primary_group.banned:
+        f_r = FlashAndRedirect(
+            message="您被禁止访问匿名平台，请联系论坛管理团队",
+            level="danger",
+            endpoint="forum.index"
+        )
+        return f_r()
 
 @AnonymousPlatform_bp.before_request
 def check_fresh_login():
